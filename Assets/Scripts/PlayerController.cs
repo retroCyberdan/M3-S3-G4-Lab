@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] private float _speed = 10;
     [SerializeField] Rigidbody2D _rb;
+    //[SerializeField] private AudioManager _steps;
 
     float h;
     float v;
@@ -19,7 +20,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        h = Input.GetAxis("Horizontal"); // <- acquisisco gli inpu in Update
+        h = Input.GetAxis("Horizontal"); // <- acquisisco gli input in Update
         v = Input.GetAxis("Vertical");
     }
 
@@ -39,6 +40,8 @@ public class PlayerController : MonoBehaviour
             }
 
             _rb.MovePosition(_rb.position + dir * (_speed * Time.deltaTime)); // <- eseguo il movimento tramite Rigidbody2D
+
+            //_steps.PlayerStepsSound();
         }
     }
 }

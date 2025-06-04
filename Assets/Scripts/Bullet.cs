@@ -5,9 +5,16 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     [SerializeField] private float _speed = 10f;
-    [SerializeField] private float _lifeSpan = 5f;
+    [SerializeField] private float _lifeSpan = 2f;
+    [SerializeField] private AudioClip _deathClip;
+    AudioSource _deathSound;
 
-    private void Start()
+    private void Awake()
+    {
+        _deathSound = GetComponent<AudioSource>();
+    }
+
+    void Start()
     {
         Destroy(gameObject, _lifeSpan); // <- distrugge il Proiettile dopo tot secondi che è stato generato
     }
@@ -19,6 +26,8 @@ public class Bullet : MonoBehaviour
         {
             Destroy(collision.gameObject); // <- distrugge il Nemico all'impatto
             Destroy(gameObject); // <- distrugge il Proiettile all'impatto
+            _deathSound.clip = _deathClip;
+            _deathSound.Play();
         }
     }
 }

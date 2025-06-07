@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] private float _speed = 5;
+    [SerializeField] private float _speed = 2.5f;
     [SerializeField] private PlayerController _player;
+    [SerializeField] private AudioController _hitSounds;
     [SerializeField] AudioClip _deathClip;
     AudioSource _deathSound;
 
@@ -40,9 +41,15 @@ public class Enemy : MonoBehaviour
     {
         if(collision.collider.CompareTag("Player"))
         {
-            Destroy(collision.gameObject);
             _deathSound.clip = _deathClip;
             _deathSound.Play();
+            Destroy(collision.gameObject);
+        }
+
+        if(collision.collider.CompareTag("Bullet"))
+        {
+            _hitSounds.ShootHitSounds();
+            Destroy(collision.gameObject);
         }
     }
 }

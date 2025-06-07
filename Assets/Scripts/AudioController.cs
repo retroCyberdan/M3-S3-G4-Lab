@@ -2,23 +2,30 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AudioManager: MonoBehaviour
+public class AudioController: MonoBehaviour
 {
-    UnityEngine.AudioSource audioSource;
-    [SerializeField] UnityEngine.AudioClip[] _shootSounds;
-    [SerializeField] UnityEngine.AudioClip[] _hitSounds;
+    AudioSource bgmAudioSource;
+    AudioSource shootAudioSource;
+    AudioSource hitAudioSource;
+    [SerializeField] private AudioClip _bgmClip;
+    [SerializeField] private AudioClip[] _shootClips;
+    [SerializeField] private AudioClip[] _hitClips;
     //[SerializeField] AudioClip[] _playerStepsSounds;
     //[SerializeField] AudioClip[] _enemyStepsSounds;
 
     private void Awake()
     {
-        audioSource = GetComponent<UnityEngine.AudioSource>();
+        bgmAudioSource = GetComponent<AudioSource>();
+        shootAudioSource = GetComponent<AudioSource>();
+        hitAudioSource = GetComponent<AudioSource>();
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        audioSource.Play();
+        bgmAudioSource.clip = _bgmClip;
+        bgmAudioSource.Play();
+        bgmAudioSource.loop = true;
     }
 
     // Update is called once per frame
@@ -43,15 +50,15 @@ public class AudioManager: MonoBehaviour
 
     public void ShootSounds()
     {
-        int randomIndex = Random.Range(0, _shootSounds.Length);
-        audioSource.clip = _shootSounds[randomIndex];
-        audioSource.Play();
+        int randomIndex = Random.Range(0, _shootClips.Length);
+        shootAudioSource.clip = _shootClips[randomIndex];
+        shootAudioSource.Play();
     }
 
     public void ShootHitSounds()
     {
-        int randomIndex = Random.Range(0, _hitSounds.Length);
-        audioSource.clip = _hitSounds[randomIndex];
-        audioSource.Play();
+        int randomIndex = Random.Range(0, _hitClips.Length);
+        hitAudioSource.clip = _hitClips[randomIndex];
+        hitAudioSource.Play();
     }
 }

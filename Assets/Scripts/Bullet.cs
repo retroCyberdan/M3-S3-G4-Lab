@@ -6,12 +6,12 @@ public class Bullet : MonoBehaviour
 {
     [SerializeField] private float _speed = 10f;
     [SerializeField] private float _lifeSpan = 2f;
-    [SerializeField] private AudioClip _deathClip;
-    AudioSource _deathSound;
+    //[SerializeField] private AudioClip _deathClip;
+    //AudioSource _deathSound;
 
     private void Awake()
     {
-        _deathSound = GetComponent<AudioSource>();
+        
     }
 
     void Start()
@@ -24,10 +24,10 @@ public class Bullet : MonoBehaviour
     {
         if(collision.collider.CompareTag("Enemy"))
         {
+            //_deathSound.clip = _deathClip;
+            //_deathSound.Play();
             Destroy(collision.gameObject); // <- distrugge il Nemico all'impatto
             Destroy(gameObject); // <- distrugge il Proiettile all'impatto
-            _deathSound.clip = _deathClip;
-            _deathSound.Play();
         }
     }
 }

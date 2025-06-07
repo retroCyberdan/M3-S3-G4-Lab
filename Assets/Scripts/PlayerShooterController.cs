@@ -8,7 +8,7 @@ public class PlayerShooterController : MonoBehaviour
     [SerializeField] private float _fireRate;
     [SerializeField] private float _fireRange;
     [SerializeField] private Bullet _bulletPrefab;
-    [SerializeField] private AudioManager _shootSounds;
+    [SerializeField] private AudioController _shootSounds;
 
     private float _nextFireTime = 0f;
 
@@ -16,7 +16,7 @@ public class PlayerShooterController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -54,7 +54,7 @@ public class PlayerShooterController : MonoBehaviour
         if (target == null) return; // <- se non ci sono target nel range, non spara
         else
         {
-            Bullet bulletClone = Instantiate(_bulletPrefab); // <- creo un clone del Prefab tramite il metodo "Instantiate" e lo metto in scena
+            Bullet bulletClone = Instantiate(_bulletPrefab, transform.position, _bulletPrefab.transform.rotation); // <- creo un clone del Prefab tramite il metodo "Instantiate" e lo metto in scena
             bulletClone.transform.position = transform.position + Vector3.forward * 1.5f; // <- lo faccio spawnare leggermente avanti al player
             Vector2 bulletDirection = (target.transform.position - transform.position).normalized; // <- creao un Vector2 direzione a cui assegno la differenza tra la posizione del target e la mia (normalizzata)
             Rigidbody2D bulletRb = bulletClone.GetComponent<Rigidbody2D>(); // <- accedo alla componente Rigidbody2D del mio clone
